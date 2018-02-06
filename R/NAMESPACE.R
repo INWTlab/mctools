@@ -1,0 +1,2 @@
+#' @importFrom parallel mclapply
+NULL
