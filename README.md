@@ -5,7 +5,7 @@ Here is the problem we'd like to solve.
 
 -   We would like to have all warnings to be errors so that we can deal with them.
 -   We use third party packages which sometimes throw warnings. These warnings do not make us happy, but they should not break in production. We know them and want to accept them.
--   We use `parallel::mclapply` because we have some long running tasks and realize `suppressWarnings` and `options(warn = 2)` do not work as expected in parallel! Also, interactive sessions behave differently than interactive ones. All this is very tricky to resolve.
+-   We use `parallel::mclapply` because we have some long running tasks and realize `suppressWarnings` and `options(warn = 2)` do not work as expected in parallel! Also, interactive sessions behave differently than batch mode. All this is very tricky to resolve.
 
 ``` r
 options(warn = 0)
@@ -55,8 +55,8 @@ Capture warnings and process them as you wish:
 
 ``` r
 mcMap(1:3, productionFunction, warnings = "return")
-#> ERROR [2018-02-06 18:34:56] We should never end up in this branch...
-#> WARN [2018-02-06 18:34:56] number of rows of result is not a multiple of vector length (arg 1)
+#> ERROR [2018-02-06 18:43:03] We should never end up in this branch...
+#> WARN [2018-02-06 18:43:03] number of rows of result is not a multiple of vector length (arg 1)
 #> [[1]]
 #> [1] "this may be okay"
 #> 
@@ -81,12 +81,12 @@ mcMap(1:3, productionFunction, warnings = "return")
 #> <simpleWarning in cbind(1:2, 1:3): number of rows of result is not a multiple of vector length (arg 1)>
 ```
 
-White-list specific warnings if this is what you want:
+White-list specific warnings if that is what you want:
 
 ``` r
 mcMap(1:3, productionFunction, warnings = "stop", warningsWhitelist = "multiple")
-#> ERROR [2018-02-06 18:34:56] We should never end up in this branch...
-#> WARN [2018-02-06 18:34:56] number of rows of result is not a multiple of vector length (arg 1)
+#> ERROR [2018-02-06 18:43:03] We should never end up in this branch...
+#> WARN [2018-02-06 18:43:03] number of rows of result is not a multiple of vector length (arg 1)
 #> [[1]]
 #> [1] "this may be okay"
 #> 
@@ -104,7 +104,7 @@ Or fail when any of the processes encounter warnings:
 
 ``` r
 mcMap(1:3, productionFunction, warnings = "stop")
-#> ERROR [2018-02-06 18:34:56] We should never end up in this branch...
-#> WARN [2018-02-06 18:34:56] number of rows of result is not a multiple of vector length (arg 1)
+#> ERROR [2018-02-06 18:43:03] We should never end up in this branch...
+#> WARN [2018-02-06 18:43:03] number of rows of result is not a multiple of vector length (arg 1)
 #> Error in checkWhitelistAndStop(res, whitelist): #overall/#warnings: 3/1
 ```
