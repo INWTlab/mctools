@@ -56,7 +56,7 @@ library(mctools)
 options(warn = 2)
 ```
 
-Capture warnings and process them as you wish:
+This is how I expected `mclapply` to behave in the first place:
 
 ```{r}
 mcMap(1:3, productionFunction)
