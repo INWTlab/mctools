@@ -34,5 +34,5 @@ matchOption <- function(value) {
   stopifnot(is.numeric(value) && length(value) == 1)
   if (value < 0) "suppress"
   else if (value %in% c(0, 1)) "log" # logging by default
-  else "aserror"
+  else "asError"
 }

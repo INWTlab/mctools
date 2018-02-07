@@ -37,12 +37,11 @@
 mcMap <- function(x, f, ...,
                   errors = getErrorsOption(), warnings = getWarningsOption(),
                   warningsWhitelist = getWarningsWhitelist(),
-                  finallyStop = TRUE) {
+                  finallyStop = FALSE) {
   force(warnings)
   param <- getOption("warn")
   on.exit(options(warn = param))
   options(warn = 0)
-  browser()
   res <- mclapply(
     x,
     wrapper(f, warnHandler(warnings, warningsWhitelist), errorHandler(errors)),
@@ -55,10 +54,11 @@ wrapper <- function(fun, warnHandler, errorHandler) {
   force(warnHandler); force(errorHandler)
   function(...) {
     tryCatch(
-      fun(...),
       error = errorHandler,
-      warning = warnHandler
-    )
+      withCallingHandlers(
+        warning = warnHandler,
+        fun(...)
+      ))
   }
 }
 
@@ -70,8 +70,5 @@ handleErrors <- function(res, finallyStop) {
 
 isError <- function(x) {
   errorTypes <- c("try-error", "simpleError", "error")
-  vapply(
-    lapply(x, `[[`, "resOrError"),
-    function(x) any(class(x) %in% errorTypes), logical(1)
-  )
+  vapply(x, function(x) any(class(x) %in% errorTypes), logical(1))
 }

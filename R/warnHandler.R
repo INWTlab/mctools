@@ -1,6 +1,5 @@
 warnHandler <- function(warnings, ...) {
   stopifnot(warnings %in% c("log", "suppress", "asError"))
-  browser()
   get(paste0("warn", tolower(warnings)), envir = environment(), mode = "function")(...)
 }
 
@@ -32,9 +31,7 @@ warnaserror <- function(whitelist, ...) {
       invokeRestart("muffleWarning")
     }
     else {
-      msg <- paste("Escalated warning:", w$message)
-      futile.logger::flog.error(msg)
-      simpleError(msg, w$call)
+      stop(simpleError(paste("Escalated warning:", w$message), w$call))
     }
   }
 
