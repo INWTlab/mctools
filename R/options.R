@@ -1,26 +1,28 @@
-#' Helpers for deducing options of mcMap
+#' @details
 #'
-#' Helpers for deducing options of mcMap. A translation of R's warning option
-#' into this framework. Logging of warnings and errors is not handled with these
-#' options for \code{mcMap}.
+#' Helpers for deducing options of mcMap. This is so we can set the behaviour in
+#' the beginning of a script globally. Each call to \code{mcMap} can override
+#' these settings. Logging is enabled by default (for \code{options(warn = 0)}).
+#' For \code{options(warn = -1)} we suppress logging and warnings. For
+#' \code{options(warn = 2)} warnings are handled as errors.
 #'
-#' @param errors,warn (numeric) see \link{options}. '<=1' -> 'suppress';
-#'   '>1' -> 'stop'
+#' @param errors,warn (numeric) see \link{options}. '-1' -> 'suppress';
+#'   '0&1' -> 'log'; '2' -> 'asError'
 #' @param whitelist (character) see \link{mcMap}
 #'
-#' @rdname options
+#' @rdname mcMap
 #' @export
 getErrorsOption <- function(errors = getOption("mctoolsErrors", 0)) {
   matchOption(errors)
 }
 
-#' @rdname options
+#' @rdname mcMap
 #' @export
 getWarningsOption <- function(warn = getOption("warn", 0)) {
   matchOption(warn)
 }
 
-#' @rdname options
+#' @rdname mcMap
 #' @export
 getWarningsWhitelist <- function(whitelist = getOption("mctoolsWarningsWhitelist", character())) {
   # This function is only here to provide a consistent interface to the options:
@@ -30,6 +32,7 @@ getWarningsWhitelist <- function(whitelist = getOption("mctoolsWarningsWhitelist
 
 matchOption <- function(value) {
   stopifnot(is.numeric(value) && length(value) == 1)
-  if (value <= 1) "suppress"
-  else "stop"
+  if (value < 0) "suppress"
+  else if (value %in% c(0, 1)) "log" # logging by default
+  else "aserror"
 }

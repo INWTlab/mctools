@@ -60,7 +60,7 @@ options(mc.cores = 1) ## this is so we may see logging
 Capture warnings and process them as you wish:
 
 ```{r}
-mcMap(1:3, productionFunction, warnings = "return")
+mcMap(1:3, productionFunction)
 ```
 
 White-list specific warnings if that is what you want:
