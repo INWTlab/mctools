@@ -48,15 +48,14 @@ Use `mcMap` as a drop in replacement for `mclapply` if you need more control ove
 ``` r
 library(mctools)
 options(warn = 2)
-options(mc.cores = 1) ## this is so we may see logging
 ```
 
 Capture warnings and process them as you wish:
 
 ``` r
-mcMap(1:3, productionFunction, warnings = "return")
-#> ERROR [2018-02-06 18:43:03] We should never end up in this branch...
-#> WARN [2018-02-06 18:43:03] number of rows of result is not a multiple of vector length (arg 1)
+mcMap(1:3, productionFunction)
+#> ERROR [2018-02-07 20:34:19] We should never end up in this branch...
+#> ERROR [2018-02-07 20:34:19] Escalated warning: number of rows of result is not a multiple of vector length (arg 1)
 #> [[1]]
 #> [1] "this may be okay"
 #> 
@@ -64,29 +63,15 @@ mcMap(1:3, productionFunction, warnings = "return")
 #> <simpleError in fun(...): We should never end up in this branch...>
 #> 
 #> [[3]]
-#>      [,1] [,2]
-#> [1,]    1    1
-#> [2,]    2    2
-#> [3,]    1    3
-#> 
-#> attr(,"warnings")
-#> attr(,"warnings")[[1]]
-#> list()
-#> 
-#> attr(,"warnings")[[2]]
-#> list()
-#> 
-#> attr(,"warnings")[[3]]
-#> attr(,"warnings")[[3]][[1]]
-#> <simpleWarning in cbind(1:2, 1:3): number of rows of result is not a multiple of vector length (arg 1)>
+#> <simpleError in cbind(1:2, 1:3): Escalated warning: number of rows of result is not a multiple of vector length (arg 1)>
 ```
 
 White-list specific warnings if that is what you want:
 
 ``` r
-mcMap(1:3, productionFunction, warnings = "stop", warningsWhitelist = "multiple")
-#> ERROR [2018-02-06 18:43:03] We should never end up in this branch...
-#> WARN [2018-02-06 18:43:03] number of rows of result is not a multiple of vector length (arg 1)
+mcMap(1:3, productionFunction, warningsWhitelist = "multiple")
+#> ERROR [2018-02-07 20:34:19] We should never end up in this branch...
+#> WARN [2018-02-07 20:34:19] number of rows of result is not a multiple of vector length (arg 1)
 #> [[1]]
 #> [1] "this may be okay"
 #> 
@@ -103,8 +88,8 @@ mcMap(1:3, productionFunction, warnings = "stop", warningsWhitelist = "multiple"
 Or fail when any of the processes encounter warnings:
 
 ``` r
-mcMap(1:3, productionFunction, warnings = "stop")
-#> ERROR [2018-02-06 18:43:03] We should never end up in this branch...
-#> WARN [2018-02-06 18:43:03] number of rows of result is not a multiple of vector length (arg 1)
-#> Error in checkWhitelistAndStop(res, whitelist): #overall/#warnings: 3/1
+mcMap(1:3, productionFunction, finallyStop = TRUE)
+#> ERROR [2018-02-07 20:34:19] We should never end up in this branch...
+#> ERROR [2018-02-07 20:34:19] Escalated warning: number of rows of result is not a multiple of vector length (arg 1)
+#> Error in handleErrors(res, finallyStop): #overall/#errors: 3/2
 ```

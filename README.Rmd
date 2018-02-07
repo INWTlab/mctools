@@ -54,7 +54,6 @@ over errors and warnings. Be aware that `mcMap` is a simple wrapper around
 ```{r}
 library(mctools)
 options(warn = 2)
-options(mc.cores = 1) ## this is so we may see logging
 ```
 
 Capture warnings and process them as you wish:
