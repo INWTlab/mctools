@@ -4,7 +4,7 @@ Version: 0.1.0
 Authors@R: person("Sebastian", "Warnholz", email = "Sebastian.Warnholz@inwt-statistics.de", role = c("aut", "cre"))
 Description: At this time 'only' a wrapper around mclapply which gives more control how errors and warnings are handled.
 Depends: R (>= 3.4.2)
-Imports: parallel, futile.logger, modules
+Imports: parallel, futile.logger
 Copyright: Copyright: (c) 2017 INWT Statistics GmbH. All Rights Reserved.
 Encoding: UTF-8
 LazyData: true
