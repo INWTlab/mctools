@@ -1,4 +1,4 @@
-#' @details
+#' Deducing options for mcMap
 #'
 #' Helpers for deducing options of mcMap. This is so we can set the behaviour in
 #' the beginning of a script globally. Each call to \code{mcMap} can override
@@ -10,19 +10,19 @@
 #'   '0&1' -> 'log'; '2' -> 'asError'
 #' @param whitelist (character) see \link{mcMap}
 #'
-#' @rdname mcMap
+#' @rdname options
 #' @export
 getErrorsOption <- function(errors = getOption("mctoolsErrors", 0)) {
   matchOption(errors)
 }
 
-#' @rdname mcMap
+#' @rdname options
 #' @export
 getWarningsOption <- function(warn = getOption("warn", 0)) {
   matchOption(warn)
 }
 
-#' @rdname mcMap
+#' @rdname options
 #' @export
 getWarningsWhitelist <- function(whitelist = getOption("mctoolsWarningsWhitelist", character())) {
   # This function is only here to provide a consistent interface to the options:
