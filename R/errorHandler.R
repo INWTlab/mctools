@@ -1,4 +1,4 @@
-errorHandler <- function(errors, ...) {
+ErrorHandler <- function(errors, ...) {
   stopifnot(errors %in% c("log", "suppress"))
   get(paste0("error", errors), mode = "function")(...)
 }

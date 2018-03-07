@@ -1,4 +1,4 @@
-warnHandler <- function(warnings, ...) {
+WarnHandler <- function(warnings, ...) {
   stopifnot(warnings %in% c("log", "suppress", "asError"))
   get(paste0("warn", tolower(warnings)), envir = environment(), mode = "function")(...)
 }

@@ -1,6 +1,6 @@
 Package: mctools
 Title: Tools for parallel and asynchronous programs
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("Sebastian", "Warnholz", email = "Sebastian.Warnholz@inwt-statistics.de", role = c("aut", "cre"))
 Description: At this time 'only' a wrapper around mclapply which gives more control how errors and warnings are handled.
 Depends: R (>= 3.4.2)

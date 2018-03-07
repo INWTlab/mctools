@@ -43,15 +43,33 @@ mcMap <- function(x, f, ...,
   on.exit(options(warn = param))
   options(warn = 0)
   res <- mclapply(
-    x,
-    wrapper(f, warnHandler(warnings, warningsWhitelist), errorHandler(errors)),
-    ...)
+    x, WithCallingHandlers(f, errors, warnings, warningsWhitelist), ...)
   res <- handleErrors(res, finallyStop)
   res
 }
 
-wrapper <- function(fun, warnHandler, errorHandler) {
-  force(warnHandler); force(errorHandler)
+
+#' Error and warning handling
+#'
+#' Compared to \link{withCallingHandlers} here we return a function which will
+#' will execute the desired call with modified calling handlers. This exposes
+#' the mechanism used in \link[mctools]{mcMap} to be re-used.
+#'
+#' @inheritParams mcMap
+#' @param fun (function) a function
+#'
+#' @return the function \code{fun} wrapped in calling handlers.
+#'
+#' @export
+#' @examples
+#' WithCallingHandlers(function(x) stop("Nooooooo"))()
+#'
+WithCallingHandlers <- function(fun,
+                                errors = getErrorsOption(),
+                                warnings = getWarningsOption(),
+                                warningsWhitelist = getWarningsWhitelist()) {
+  warnHandler <- WarnHandler(warnings, warningsWhitelist)
+  errorHandler <- ErrorHandler(errors)
   function(...) {
     tryCatch(
       error = errorHandler,
