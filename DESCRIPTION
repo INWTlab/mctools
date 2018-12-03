@@ -1,11 +1,11 @@
 Package: mctools
 Title: Tools for parallel and asynchronous programs
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: person("Sebastian", "Warnholz", email = "Sebastian.Warnholz@inwt-statistics.de", role = c("aut", "cre"))
 Description: At this time 'only' a wrapper around mclapply which gives more control how errors and warnings are handled.
 Depends: R (>= 3.4.2)
 Imports: parallel, futile.logger
-Copyright: Copyright: (c) 2017 INWT Statistics GmbH. All Rights Reserved.
+Copyright: Copyright: (c) 2017-2018 INWT Statistics GmbH. All Rights Reserved.
 Encoding: UTF-8
 LazyData: true
 License: MIT + file LICENSE
@@ -13,4 +13,4 @@ Suggests: testthat,
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

@@ -4,7 +4,8 @@
 \alias{mcMap}
 \title{mclapply with error and warning handlers}
 \usage{
-mcMap(x, f, ..., errors = getErrorsOption(), warnings = getWarningsOption(),
+mcMap(x, f, ..., errors = getErrorsOption(),
+  warnings = getWarningsOption(),
   warningsWhitelist = getWarningsWhitelist(), finallyStop = FALSE)
 }
 \arguments{

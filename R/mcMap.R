@@ -82,7 +82,7 @@ WithCallingHandlers <- function(fun,
 
 handleErrors <- function(res, finallyStop) {
   if (finallyStop && any(isError(res))) stop(sprintf(
-    "#overall/#errors: %s/%s", length(res), sum(isError(res))))
+    "errors/overall: %s/%s", sum(isError(res)), length(res)))
   else res
 }
 
