@@ -1,3 +1,5 @@
+[![R-CMD-check](https://github.com/INWTlab/mctools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/INWTlab/mctools/actions/workflows/R-CMD-check.yaml)
+
 The problem
 -----------
 
